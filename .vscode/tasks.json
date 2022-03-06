@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "C++ Build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "type": "shell",
+      "command": "clang++ --std=c++11 -Weverything -Wno-c++98-compat -Wno-missing-prototypes -pedantic -g -lm '${file}' -o '${workspaceFolder}/target'",
+      "options": {
+        "cwd": "${fileDirname}"
+      }
+    },
+    {
+      "label": "C++ Run",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "type": "shell",
+      "command": "./target",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": ["C++ Build"]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+--std=c++11
+-Weverything
+-Wno-c++98-compat
+-Wno-missing-prototypes
+-pedantic
+-g
+-lm

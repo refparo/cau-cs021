@@ -18,7 +18,7 @@ public:
   double getReal() const { return real; }
   double getImag() const { return imag; }
 
-  bool isReal() const { return fabs(imag) < EPSILON; }
+  bool isReal() const { return abs(imag) < EPSILON; }
 
   Complex operator+(const Complex &rhs) const {
     return Complex(real + rhs.real, imag + rhs.imag);

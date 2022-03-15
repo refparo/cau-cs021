@@ -8,7 +8,7 @@
         "isDefault": true
       },
       "type": "shell",
-      "command": "clang++ --std=c++11 -Weverything -Wno-c++98-compat -Wno-missing-prototypes -Wno-padded -Wno-shadow-field-in-constructor -pedantic -g -lm '${file}' -o '${workspaceFolder}/target'",
+      "command": "clang++ --std=c++11 -Weverything -Wno-c++98-compat -Wno-missing-prototypes -Wno-padded -Wno-shadow-field-in-constructor -Wno-zero-as-null-pointer-constant -pedantic -g -lm '${file}' -o '${workspaceFolder}/target'",
       "options": {
         "cwd": "${fileDirname}"
       }

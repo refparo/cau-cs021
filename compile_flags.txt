@@ -4,6 +4,7 @@
 -Wno-missing-prototypes
 -Wno-padded
 -Wno-shadow-field-in-constructor
+-Wno-zero-as-null-pointer-constant
 -pedantic
 -g
 -lm

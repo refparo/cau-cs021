@@ -49,10 +49,31 @@ public:
     return array[realI];
   }
 
+  bool operator==(const DynamicVector& rhs) const {
+    if (offset != rhs.offset || filledSize != rhs.filledSize) return false;
+    for (int i = 0; i < filledSize; i++)
+      if (this->array[i] != rhs.array[i]) return false;
+    return true;
+  }
+
+  DynamicVector& operator=(const DynamicVector& src) {
+    delete[] array;
+    array = NULL;
+    mallocSize = filledSize = 0;
+    offset = src.offset;
+    resize(src.mallocSize);
+    for (int i = 0; i < src.filledSize; i++) push_back(src.array[i]);
+    return *this;
+  }
+
   void push_back(const T& value) {
     if (filledSize >= mallocSize) resize(2 * mallocSize + 1);
     array[filledSize] = value;
     filledSize++;
+  }
+
+  void push_back(const DynamicVector& src) {
+    for (int i = 0; i < src.filledSize; i++) push_back(src.array[i]);
   }
 
   int resize(unsigned int size) {
@@ -76,30 +97,35 @@ int main() {
   ra.push_back(-3);
   ra.push_back(-2);
   ra.push_back(-1);
-  for (i = 0; i < n; i++) {
-    ra.push_back(i);
-  }
+  for (i = 0; i < n; i++) ra.push_back(i);
   cout << "\n malloSize is " << ra.capacity();
   cout << "\n numofItems is " << ra.length();
   cout << "\n StartIndex is " << ra.firstIndex() << endl;
-  for (i = -2; i < n + 1; i++) {
-    cout << ra[i] << " ";
-  }
+  for (i = -2; i < n + 1; i++) cout << ra[i] << " ";
   cout << endl;
   DynamicVector<int> raCopy(ra);
   cout << "\n malloSize is " << raCopy.capacity();
   cout << "\n numofItems is " << raCopy.length();
   cout << "\n StartIndex is " << raCopy.firstIndex() << endl;
   cout << endl;
-  for (i = -2; i < n + 1; i++) {
-    cout << ++ra[i] << " ";
-  }
+  for (i = -2; i < n + 1; i++) cout << ++ra[i] << " ";
   cout << endl;
-  for (i = -2; i < n + 1; i++) {
-    cout << raCopy[i] << " ";
-  }
+  for (i = -2; i < n + 1; i++) cout << raCopy[i] << " ";
+
+  raCopy = ra;
+  if (ra == raCopy) cout << "\n ra == raCopy";
+  else cout << "\n ra != raCopy";
+
+  ra[-2] = 100;
+
+  if (ra == raCopy) cout << "\n ra == raCopy";
+  else cout << "\n ra != raCopy";
+
+  raCopy.push_back(ra);
+  cout << endl;
+  int firstI = raCopy.firstIndex();
+  for (i = 0; i < raCopy.length(); i++) cout << raCopy[i + firstI] << " ";
 
   return 0;
 }
 //StudybarCommentEnd
-

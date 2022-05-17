@@ -76,6 +76,15 @@ public:
     for (int i = 0; i < src.filledSize; i++) push_back(src.array[i]);
   }
 
+  void insert(int i, const T &value) {
+    if (filledSize >= mallocSize) resize(2 * mallocSize + 1);
+    int realI = i - offset;
+    for (int i = filledSize; i > realI; i--)
+      array[i] = array[i - 1];
+    array[realI] = value;
+    filledSize++;
+  }
+
   int resize(unsigned int size) {
     if (size == mallocSize) return 0;
     filledSize = ::min(size, filledSize);
@@ -86,6 +95,12 @@ public:
     mallocSize = size;
     array = newArray;
     if (size > mallocSize) return 1; else return -1;
+  }
+
+  friend ostream& operator<<(ostream &out, const DynamicVector &self) {
+    if (self.filledSize == 0) cout << "The arrray is empty." << endl;
+    else for (int i = 0; i < self.filledSize; i++)
+      cout << self.array[i] << ' ';
   }
 };
 

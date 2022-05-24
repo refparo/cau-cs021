@@ -45,9 +45,8 @@ List<T>::List() : data(0), link(NULL) {}
 
 template<typename T>
 List<T>::~List() {
-  // do not use recursive destruction
-  // as there is an IMPLICIT requirement of destruction order
-  // fuck.
+  delete link;
+  /*
   if (link == NULL) return;
   List* node = link;
   for (
@@ -59,6 +58,7 @@ List<T>::~List() {
     delete node;
   }
   delete node;
+  */
 }
 
 template<typename T>

@@ -10,7 +10,7 @@ using std::setw;
 
 const int months[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-constexpr int get_month(int year, int month) {
+int get_month(int year, int month) {
   return month == 2 && year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
     ? 29 : months[month];
 }
@@ -88,7 +88,7 @@ public:
 
 class Daytime {
   int h, m, s;
-  int overflow = 0;
+  int overflow;
 public:
   Daytime(int hour = 0, int minute = 0, int second = 0, int overflow = 0)
     : h(hour), m(minute), s(second), overflow(overflow) {}

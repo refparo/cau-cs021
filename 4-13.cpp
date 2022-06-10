@@ -9,7 +9,7 @@ inline int ceil_div(int a, int b) {
 }
 
 class HugeInt {
-  static const int digits = 30;
+  static const int digits = 3000;
   short integer[digits];
 public:
   HugeInt(long num = 0) : integer{0} {
@@ -28,6 +28,15 @@ public:
     }
   }
 
+  HugeInt& operator+=(const HugeInt &rhs) {
+    short carry = 0;
+    for (int i = 0; i < digits; i++) {
+      integer[i] += rhs.integer[i] + carry;
+      carry = integer[i] / 10000;
+      integer[i] %= 10000;
+    }
+    return *this;
+  }
   HugeInt operator+(const HugeInt &rhs) const {
     HugeInt res;
     short carry = 0;
@@ -153,6 +162,7 @@ public:
   }
 };
 
+/*
 //StudybarCommentBegin
 int main() {
   HugeInt n1(7654321);
@@ -212,3 +222,15 @@ int main() {
   return 0;
 }
 //StudybarCommentEnd
+*/
+
+int main() {
+  HugeInt a(0x7ffffffe), b(0x7fffffff);
+  for (int i = 0; i < 50000; i++) {
+    b += a;
+    a += b;
+  }
+  cout << a << endl << b << endl;
+  return 0;
+}
+

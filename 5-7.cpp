@@ -8,7 +8,7 @@ class Array {
   T ptr[n];
   static int arrayCount;
 public:
-  Array(): ptr{} { arrayCount++; }
+  Array() { arrayCount++; }
   int getSize() const { return n; }
   friend ostream& operator<<(ostream& out, const Array<T, n> &self) {
     for (int i = 0; i < n; i++) out << self.ptr[i] << ' ';

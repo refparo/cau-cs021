@@ -9,7 +9,7 @@ int diff(int a, int b) {
 
 int main() {
   map<int, int> m;
-  m.emplace(1000000000, 1);
+  m.insert(pair<int, int>(1000000000, 1));
 
   int num;
   cin >> num;
@@ -17,7 +17,7 @@ int main() {
   int closest1 = 1000000000, closest2 = 1000000000;
   for (; num > 0; num--) {
     cin >> id >> power;
-    for (map<int, int>::const_iterator p = m.cbegin(); p != m.cend(); p++)
+    for (map<int, int>::const_iterator p = m.begin(); p != m.end(); p++)
       if (diff(p->first, power) <= diff(closest1, power)) {
         closest2 = closest1; closest1 = p->first;
       } else if (diff(p->first, power) <= diff(closest2, power)) {
@@ -27,7 +27,7 @@ int main() {
       cout << id << ' ' << m[min(closest1, closest2)] << endl;
     else
       cout << id << ' ' << m[closest1] << endl;
-    m.emplace(power, id);
+    m.insert(pair<int, int>(power, id));
   }
 
   return 0;

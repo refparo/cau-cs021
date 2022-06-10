@@ -25,17 +25,19 @@ public:
 
 #include <iomanip>
 
-HugeInt::HugeInt(long num) : integer{0} {
-  int i = 0;
-  while (num > 0) {
+HugeInt::HugeInt(long num) {
+  int i;
+  for (i = 0; i < digits; i++) integer[i] = 0;
+  for (i = 0; num > 0; i++) {
     integer[i] = num % 10000;
     num /= 10000;
-    i++;
   }
 }
-HugeInt::HugeInt(const char* str) : integer{0} {
+HugeInt::HugeInt(const char* str) {
+  int i;
+  for (i = 0; i < digits; i++) integer[i] = 0;
   int len = strlen(str);
-  for (int i = 0; i < len; i++) {
+  for (i = 0; i < len; i++) {
     integer[(len - i - 1) / 4] *= 10;
     integer[(len - i - 1) / 4] += str[i] - '0';
   }

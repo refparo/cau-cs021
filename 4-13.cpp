@@ -9,20 +9,24 @@ inline int ceil_div(int a, int b) {
 }
 
 class HugeInt {
-  static const int digits = 3000;
+  static const int digits = 30000;
   short integer[digits];
 public:
-  HugeInt(long num = 0) : integer{0} {
+  HugeInt(long num = 0) {
     int i = 0;
+    for (i = 0; i < digits; i++) integer[i] = 0;
+    i = 0;
     while (num > 0) {
       integer[i] = num % 10000;
       num /= 10000;
       i++;
     }
   }
-  HugeInt(const char* str) : integer{0} {
+  HugeInt(const char* str) {
+    int i;
+    for (i = 0; i < digits; i++) integer[i] = 0;
     int len = strlen(str);
-    for (int i = 0; i < len; i++) {
+    for (i = 0; i < len; i++) {
       integer[(len - i - 1) / 4] *= 10;
       integer[(len - i - 1) / 4] += str[i] - '0';
     }
@@ -225,12 +229,8 @@ int main() {
 */
 
 int main() {
-  HugeInt a(0x7ffffffe), b(0x7fffffff);
-  for (int i = 0; i < 50000; i++) {
-    b += a;
-    a += b;
-  }
-  cout << a << endl << b << endl;
+  HugeInt a(1), b(999999999);
+  for (int i = 0; i < 1000; i++) a = a * b;
+  cout << a << endl;
   return 0;
 }
-
